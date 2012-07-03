@@ -1,0 +1,17 @@
+{% extends "layout.jinja2" %}
+{% block body %}
+	<h1>Hello world!</h1>
+	<h2>Login</h2>
+	{% if error %}
+		<p class="error"><b>Error:</b> {{ error }}</p>
+	{% endif %}
+	<form action="{{ url_for('login') }}" method="post">
+		<div>
+			Username:<br>
+			<input type="text" name="username"><br>
+			Password:<br>
+			<input type="password" name="password"><br>
+			<input type="submit" value="Log In">
+		</div>
+	</form>
+{% endblock %}

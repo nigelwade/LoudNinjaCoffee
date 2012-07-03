@@ -1,0 +1,10 @@
+{% extends "layout.jinja2" %}
+{% block body %}
+	<ul class="articles">
+	{% for article in articles %}
+		<li><h2>{{ article.title }}</h2>{{ article.text|safe }}</li>
+	{% else %}
+		<li><em>No entries so far.</em></li>
+	{% endfor %}
+	</ul>
+{% endblock %}

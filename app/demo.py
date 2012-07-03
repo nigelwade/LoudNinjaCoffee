@@ -22,7 +22,7 @@ app.config.from_object(__name__)
 @app.before_request
 def before_request():
     g.db = connect_db()
-
+    
 # After each request, close the database connection.
 @app.teardown_request
 def teardown_request(exception):
@@ -32,11 +32,21 @@ def teardown_request(exception):
 # ROUTES
 
 # Display index page.
+
+@app.route("/")
+def home():
+    if session.get('logged_in'):
+        return render_template('list_articles.jinja2')
+    else:
+        return render_template("home.jinja2")
+
 @app.route('/articles')
-def show_articles():
+def list_articles():
     cursor = g.db.execute('SELECT title, text FROM articles ORDER BY id DESC')
-    articles = [dict(title=row[0], text=row[1]) for row in cursor.fetchall()]
-    return render_template('show_articles.html', articles=articles)
+    articles = [{"title": row[0], "text": row[1]} for row in cursor.fetchall()]
+    return render_template('list_articles.jinja2', articles=articles)
+
+# TODO: create /article/<id> route
 
 @app.route('/article/new', methods=['POST'])
 def add_article():
@@ -46,9 +56,9 @@ def add_article():
                  [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New article was successfully posted')
-    return redirect(url_for('show_articles'))
+    return redirect(url_for('list_articles'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -59,14 +69,14 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('show_articles'))
-    return render_template('login.html', error=error)
+            return redirect(url_for('list_articles'))
+    return render_template('home.jinja2', error=error)
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('show_articles'))
+    return redirect(url_for('list_articles'))
 
 
 # UTILITY
