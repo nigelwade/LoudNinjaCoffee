@@ -4,3 +4,5 @@ CREATE TABLE articles (
 	title STRING NOT NULL,
 	text STRING NOT NULL
 );
+
+

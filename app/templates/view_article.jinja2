@@ -3,13 +3,9 @@
 #Create a call to the SQL, similar to the demo.py, that asks to SELECT title and text from article. And the requirement WHERE id={whatever the article's id is}
 #Google shit, don't do more than what you need to just make it run correctly.
 
-{% extends "layout.jinja2" %}
+{% extends "show_article.jinja2" %}
 {% block body %}
 	<ul class="article">
-	{% for article in article %}
 		<li><h2>{{ article.title }}</h2>{{ article.text|safe }}</li>
-	{% else %}
-		<li><em>No entries so far.</em></li>
-	{% endfor %}
 	</ul>
 {% endblock %}
