@@ -105,7 +105,7 @@ def edit_article_form():
 
 
 
-# TODO: handle article/new GET request by showing article entry form
+# TODO: handle article new GET request by showing article entry form
 
 
 # TODO: handle /article/edit GET request by showing edit form
