@@ -4,6 +4,7 @@ from sqlite3 import dbapi2 as sqlite3
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
+import pdb
 
 # configuration
 DATABASE = 'db/demo.db'
@@ -50,17 +51,17 @@ def home():
 
 @app.route('/articles/')
 def list_articles():
-    cursor = g.db.execute('SELECT title, text FROM articles ORDER BY id DESC')
-    articles = [{"title": row[0], "text": row[1]} for row in cursor.fetchall()]
+    cursor = g.db.execute('SELECT id, title, text FROM articles ORDER BY id DESC') 
+    articles = [{"id": row[0], "title": row[1], "text": row[2]} for row in cursor.fetchall()]
     return render_template('list_articles.jinja2', articles=articles)
     
 
-@app.route('/articles/<article_id>')
+@app.route('/article/<article_id>')
 def show_article(article_id):
     # get a single article from the database, based on the id arguments
-    cursor = g.db.execute('SELECT id, title, text FROM articles WHERE id = %d' % id)
+    cursor = g.db.execute('SELECT id, title, text FROM articles WHERE id = %d' % int(article_id))
     rows = cursor.fetchall()
-    article = articles[0]
+    row = rows[0]
     article = {"id": row[0], "title": row[1], "text": row[2]}
     print "Showing article %s" % article["title"]
     return render_template('show_article.jinja2', article=article)

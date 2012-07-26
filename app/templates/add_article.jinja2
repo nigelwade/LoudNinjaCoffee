@@ -1,0 +1,10 @@
+{% extends "layout.jinja2" %}
+{% block body %} 
+	<form action="{{ url_for('create_article') }}" method="post">
+        Title:<br>
+        <input type="text" name="title"><br>
+        Content:<br>
+        <textarea name="content"></textarea>
+	</form>
+<p>Empty page right now, but should have an article add form later.</p>	
+{% endblock %}

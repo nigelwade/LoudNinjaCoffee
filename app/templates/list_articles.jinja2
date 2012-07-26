@@ -3,7 +3,7 @@
 	<div class="articles">
 	{% for article in articles %}
 		<div class="article">
-			<h2><a href="{{ url_for('show_article', article_id=article.id }}">{{ article.title }}</a></h2>
+			<h2><a href="{{ url_for('show_article', article_id=article.id) }}">{{ article.title }}</a></h2>
 			<div class="text">
 				{{ article.text|safe }}
 			</div>

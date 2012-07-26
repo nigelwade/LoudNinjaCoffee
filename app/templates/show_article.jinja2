@@ -1,16 +1,8 @@
 {% extends "layout.jinja2" %}
 {% block body %}
-	<div class="articles">
-	{% for article in articles %}
-		<div class="id">
-			<h2><a href="">{{ article.id }}{{ article.title}}</a></h2>
-			<div class="article">
-				{{ article.text|safe }}
-			</div>
-		</div>
-	{% else %}
-		<div><em>No entries so far.</em></div>
-	{% endfor %}
+	<h2><a href="">{{ article.title}}</a></h2>
+	<div class="article">
+		{{ article.text|safe }}
 	</div>
-	
+
 {% endblock %}
